@@ -27,12 +27,19 @@
         const right = 39;
         const up = 38;
         const down = 40;
+        var totalYummy = 8;
+
+        var yummySize = 15;
+        var yummyXpos = 15;
+        var yummyYpos = 50;
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
-            colorRect(wormXpos,wormYpos,wormsize,wormsize,'red'); //worm
+            colorRect(wormXpos,wormYpos,wormsize,wormsize,'red'); //bloby
+            colorRect(yummyXpos,yummyYpos,yummySize,yummySize,'green');
 
             move();
+            yummyRandomPos();
         }
 
         function keyPressed(evt){
@@ -78,6 +85,12 @@
             if(evt.keyCode == down){
                 downKeyPressed = false;
             }
+        }
+
+        function yummyRandomPos(){
+           yummyXpos = Math.floor(Math.random()*(900 - yummySize));
+           yummyYpos = Math.floor(Math.random()*(900 - yummySize));
+           
         }
 
         function colorRect(x,y,w,h,c){
