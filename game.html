@@ -17,6 +17,7 @@
         var wormsize = 20; 
         var wormXpos = 450;
         var wormYpos = 450; 
+        const speed = 5;
 
         var leftKeyPressed = false;
         var rightKeyPressed = false;
@@ -29,9 +30,9 @@
         const down = 40;
         var totalYummy = 8;
 
-        var yummySize = 15;
-        var yummyXpos = 15;
-        var yummyYpos = 50;
+        yummyXpos = 120
+        yummyYpos = 300
+        yummySize = 35
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
@@ -59,16 +60,16 @@
 
         function move(){
             if(leftKeyPressed == true){
-                wormXpos = wormXpos - 10;
+                wormXpos = wormXpos - speed;
             }
             if(rightKeyPressed == true){
-                wormXpos = wormXpos + 10;
+                wormXpos = wormXpos + speed;
             }
             if(upKeyPressed == true){
-                wormYpos = wormYpos - 10;
+                wormYpos = wormYpos - speed;
             }
             if(downKeyPressed == true){
-                wormYpos = wormYpos + 10;
+                wormYpos = wormYpos + speed;
             }
         }
 
@@ -88,13 +89,17 @@
         }
 
         function yummyRandomPos(){
-           yummyXpos = Math.floor(Math.random()*(900 - yummySize));
-           yummyYpos = Math.floor(Math.random()*(900 - yummySize));
-           
+            if(wormXpos > yummyXpos && wormXpos < yummyXpos + yummySize && wormYpos > yummyYpos && wormYpos < yummyYpos + yummySize){
+                    yummyXpos = Math.floor(Math.random()*(900 - yummySize));
+                 yummyYpos = Math.floor(Math.random()*(900 - yummySize));
+                yummySize = Math.floor(Math.random()(15))
+
+            }
+
         }
 
         function colorRect(x,y,w,h,c){
-            canvasContext.fillStyle = c;
+            canvasContext.fillStyle = c;5409+94*9+5*8-20388-5878490
             canvasContext.fillRect(x,y,w,h);
         }
  
