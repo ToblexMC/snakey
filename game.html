@@ -1,5 +1,6 @@
 <!doctype html>
 <body>
+    
     <canvas id="gameCanvas" width="900" height="900"></canvas>
     <script>
         var canvas, canvasContext;
@@ -17,7 +18,7 @@
         var wormsize = 20; 
         var wormXpos = 450;
         var wormYpos = 450; 
-        const speed = 5;
+        var speed = 5;
 
         var leftKeyPressed = false;
         var rightKeyPressed = false;
@@ -28,11 +29,10 @@
         const right = 39;
         const up = 38;
         const down = 40;
-        var totalYummy = 8;
 
-        yummyXpos = 120
-        yummyYpos = 300
-        yummySize = 35
+        yummyXpos = 120;
+        yummyYpos = 300;
+        yummySize = 35;
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
@@ -42,6 +42,7 @@
             move();
             yummyRandomPos();
         }
+
 
         function keyPressed(evt){
             if(evt.keyCode == left){
@@ -89,10 +90,12 @@
         }
 
         function yummyRandomPos(){
-            if(wormXpos > yummyXpos && wormXpos < yummyXpos + yummySize && wormYpos > yummyYpos && wormYpos < yummyYpos + yummySize){
-                    yummyXpos = Math.floor(Math.random()*(900 - yummySize));
-                 yummyYpos = Math.floor(Math.random()*(900 - yummySize));
-                yummySize = Math.floor(Math.random()(15))
+            if(yummyYpos + wormsize > wormYpos && yummyYpos < wormYpos + wormsize && yummyXpos + yummySize > wormXpos && yummyXpos < wormXpos + wormsize){
+                yummyXpos = Math.floor(Math.random()*(900 - yummySize));
+                yummyYpos = Math.floor(Math.random()*(900 - yummySize));
+                wormsize++;
+                speed = speed + .1;
+                console.log(speed)
 
             }
 
