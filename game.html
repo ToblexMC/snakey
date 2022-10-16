@@ -1,6 +1,5 @@
 <!doctype html>
 <body>
-    
     <canvas id="gameCanvas" width="900" height="900"></canvas>
     <script>
         var canvas, canvasContext;
@@ -30,17 +29,23 @@
         const up = 38;
         const down = 40;
 
-        yummyXpos = 120;
-        yummyYpos = 300;
-        yummySize = 35;
+        var counter = 60;
+
+        var yummyXpos = 120;
+        var yummyYpos = 300;
+        var yummySize = 35; 
+
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
             colorRect(wormXpos,wormYpos,wormsize,wormsize,'red'); //bloby
             colorRect(yummyXpos,yummyYpos,yummySize,yummySize,'green');
+           
+            drawText(826.5,20,300,100,'white', 'Countdown:' + counter); //countdown
 
             move();
             yummyRandomPos();
+            count();
         }
 
 
@@ -93,17 +98,28 @@
             if(yummyYpos + wormsize > wormYpos && yummyYpos < wormYpos + wormsize && yummyXpos + yummySize > wormXpos && yummyXpos < wormXpos + wormsize){
                 yummyXpos = Math.floor(Math.random()*(900 - yummySize));
                 yummyYpos = Math.floor(Math.random()*(900 - yummySize));
-                wormsize++;
+                wormsize = wormsize + 2;
                 speed = speed + .1;
-                console.log(speed)
+                console.log("Speed: " + speed);
+                console.log("Size: " + wormsize);
 
             }
 
         }
 
+        function count(){
+            counter = counter - 0.01;
+        }
+
+
         function colorRect(x,y,w,h,c){
             canvasContext.fillStyle = c;5409+94*9+5*8-20388-5878490
             canvasContext.fillRect(x,y,w,h);
+        }
+
+        function drawText(x,y,w,h,color, msg){
+            canvasContext.fillStyle = color;
+            canvasContext.fillText(msg,x,y,w,h);
         }
  
     </script>
