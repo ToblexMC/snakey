@@ -41,7 +41,7 @@
             colorRect(wormXpos,wormYpos,wormsize,wormsize,'red'); //bloby
             colorRect(yummyXpos,yummyYpos,yummySize,yummySize,'green');
            
-            drawText(826.5,20,300,100,'white', 'Countdown:' + counter); //countdown
+            drawText(755,20,300,100,'white', 'Countdown:' + counter); //countdown
             drawText(2,20,300,100,'white', 'Size:' + wormsize); //Size Counter
 
             move();
@@ -119,6 +119,7 @@
         function drawText(x,y,w,h,color, msg){
             canvasContext.fillStyle = color;
             canvasContext.fillText(msg,x,y,w,h);
+            canvasContext.font = "20px Arial";
         }
  
     </script>
