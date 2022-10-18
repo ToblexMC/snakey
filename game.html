@@ -29,7 +29,7 @@
         const up = 38;
         const down = 40;
 
-        var counter = 60;
+        var counter = 30;
 
         var yummyXpos = 120;
         var yummyYpos = 300;
@@ -42,6 +42,7 @@
             colorRect(yummyXpos,yummyYpos,yummySize,yummySize,'green');
            
             drawText(826.5,20,300,100,'white', 'Countdown:' + counter); //countdown
+            drawText(2,20,300,100,'white', 'Size:' + wormsize); //Size Counter
 
             move();
             yummyRandomPos();
@@ -99,9 +100,7 @@
                 yummyXpos = Math.floor(Math.random()*(900 - yummySize));
                 yummyYpos = Math.floor(Math.random()*(900 - yummySize));
                 wormsize = wormsize + 2;
-                speed = speed + .1;
-                console.log("Speed: " + speed);
-                console.log("Size: " + wormsize);
+                speed = speed + .1; 
 
             }
 
