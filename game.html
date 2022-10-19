@@ -11,13 +11,13 @@
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
 
-            setInterval(mainloop, 1000 / 60);
+            setInterval(mainloop, 1000 / 100);
         }
 
         var wormsize = 20; 
         var wormXpos = 450;
         var wormYpos = 450; 
-        var speed = 5;
+        var speed = 3;
 
         var leftKeyPressed = false;
         var rightKeyPressed = false;
@@ -29,7 +29,7 @@
         const up = 38;
         const down = 40;
 
-        var counter = 30;
+        var counter = 10;
 
         var yummyXpos = 120;
         var yummyYpos = 300;
@@ -38,8 +38,8 @@
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
-            colorRect(wormXpos,wormYpos,wormsize,wormsize,'red'); //bloby
-            colorRect(yummyXpos,yummyYpos,yummySize,yummySize,'green');
+            colorRect(wormXpos,wormYpos,wormsize,wormsize,'lime'); //bloby
+            colorRect(yummyXpos,yummyYpos,yummySize,yummySize,'red');
            
             drawText(755,20,300,100,'white', 'Countdown:' + counter); //countdown
             drawText(2,20,300,100,'white', 'Size:' + wormsize); //Size Counter
@@ -66,16 +66,16 @@
         }
 
         function move(){
-            if(leftKeyPressed == true){
+            if(leftKeyPressed == true && wormXpos > 0){
                 wormXpos = wormXpos - speed;
             }
-            if(rightKeyPressed == true){
+            if(rightKeyPressed == true && wormXpos < canvas.width - wormsize){
                 wormXpos = wormXpos + speed;
             }
-            if(upKeyPressed == true){
+            if(upKeyPressed == true && wormYpos > 0){
                 wormYpos = wormYpos - speed;
             }
-            if(downKeyPressed == true){
+            if(downKeyPressed == true && wormYpos < canvas.height - wormsize){
                 wormYpos = wormYpos + speed;
             }
         }
@@ -107,7 +107,13 @@
         }
 
         function count(){
+            if(counter > 0){
             counter = counter - 0.01;
+            }
+            if(counter < 0){
+                counter = 0
+            }
+            
         }
 
 
