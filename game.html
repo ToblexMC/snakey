@@ -2,6 +2,8 @@
 <body>
     <canvas id="gameCanvas" width="900" height="900"></canvas>
     <script>
+        var name = prompt("Set username");
+        alert("Hello "+ name + ", hope you enjoy");
         var canvas, canvasContext;
 
         window.onload = function() {
@@ -29,7 +31,7 @@
         const up = 38;
         const down = 40;
 
-        var counter = 10;
+        var counter = 60;
 
         var yummyXpos = 120;
         var yummyYpos = 300;
@@ -43,6 +45,7 @@
            
             drawText(755,20,300,100,'white', 'Countdown:' + counter); //countdown
             drawText(2,20,300,100,'white', 'Size:' + wormsize); //Size Counter
+            drawText(wormXpos - 2,wormYpos - 10,300,100,'white', name); //Name
 
             move();
             yummyRandomPos();
