@@ -119,6 +119,20 @@
             
         }
 
+        function colourSet(){
+            if(counter < 31 && counter > 21){
+                colour = "yellow";
+            }
+
+            if(counter < 21 && counter > 11){
+                colour = "orange";
+            }
+
+            if (counter < 11){
+                colour = "red"
+            }
+        }
+
 
         function colorRect(x,y,w,h,c){
             canvasContext.fillStyle = c;5409+94*9+5*8-20388-5878490
