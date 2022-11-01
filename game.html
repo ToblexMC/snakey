@@ -20,6 +20,9 @@
         var wormXpos = 450;
         var wormYpos = 450; 
         var speed = 3;
+        var wormColour = "lime"
+
+        var colour = "white"
 
         var leftKeyPressed = false;
         var rightKeyPressed = false;
@@ -31,25 +34,39 @@
         const up = 38;
         const down = 40;
 
-        var counter = 60;
+        var finishLoc = 800;
+
+        var counter = 1;
 
         var yummyXpos = 120;
         var yummyYpos = 300;
         var yummySize = 35; 
+        var yummyColour = "red";
 
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
-            colorRect(wormXpos,wormYpos,wormsize,wormsize,'lime'); //bloby
-            colorRect(yummyXpos,yummyYpos,yummySize,yummySize,'red');
+            colorRect(wormXpos,wormYpos,wormsize,wormsize,wormColour); //bloby
+            colorRect(yummyXpos,yummyYpos,yummySize,yummySize,yummyColour);
            
-            drawText(755,20,300,100,'white', 'Countdown:' + counter); //countdown
+            drawText(755,20,300,100,colour, 'Countdown:' + counter); //countdown
             drawText(2,20,300,100,'white', 'Size:' + wormsize); //Size Counter
+            drawText(finishLoc,finishLoc,300,100,'white', 'Score:' + wormsize); //finish
             drawText(wormXpos - 2,wormYpos - 10,300,100,'white', name); //Name
 
             move();
             yummyRandomPos();
             count();
+            colourSet();
+            finish();
+        }
+
+        function finish(){
+            if(counter < 0.1){
+                yummyColour = "black";
+                wormColour = "black";
+                finishLoc = 400;
+            }
         }
 
 
@@ -69,16 +86,16 @@
         }
 
         function move(){
-            if(leftKeyPressed == true && wormXpos > 0){
+            if(leftKeyPressed == true && wormXpos > 0 && counter > 0){
                 wormXpos = wormXpos - speed;
             }
-            if(rightKeyPressed == true && wormXpos < canvas.width - wormsize){
+            if(rightKeyPressed == true && wormXpos < canvas.width - wormsize && counter > 0){
                 wormXpos = wormXpos + speed;
             }
-            if(upKeyPressed == true && wormYpos > 0){
+            if(upKeyPressed == true && wormYpos > 0 && counter > 0){
                 wormYpos = wormYpos - speed;
             }
-            if(downKeyPressed == true && wormYpos < canvas.height - wormsize){
+            if(downKeyPressed == true && wormYpos < canvas.height - wormsize && counter > 0){
                 wormYpos = wormYpos + speed;
             }
         }
