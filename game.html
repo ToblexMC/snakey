@@ -43,8 +43,9 @@
 
         var highscore = 0;
         var highscoreLoc = 900;
-        var hsIncrease = wormsize - highscore;
-        var highscoreBest = "You bet your highscore by " + hsIncrease + "!";
+        var hsIncrease = 0;
+        var highscoreText = "";
+        
         var hcBestLoc = 900;
 
 
@@ -56,6 +57,7 @@
         var nameColour = "white";
 
         var retryToggle = 1; 
+        
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
@@ -63,11 +65,12 @@
             colorRect(yummyXpos,yummyYpos,yummySize,yummySize,yummyColour);
            
             drawText(755,20,300,100,colour, 'Countdown:' + counter); //countdown
-            drawText(hcBestLoc,480,300,100,colour, highscoreBest); //highscore amout
+            drawText(hcBestLoc,480,300,100,colour, highscoreText); //highscore amout
             drawText(2,20,300,100,'white', 'Size:' + wormsize); //Size Counter
             drawText(finishLoc,finishLoc,300,100,'white', 'Score: ' + wormsize); //finish
             drawText(highscoreLoc,440,300,100,'white', 'Highscore: ' + highscore); //highscore
             drawText(wormXpos - 2,wormYpos - 10,300,100,nameColour, name); //Name
+
 
             move();
             yummyRandomPos();
@@ -87,7 +90,13 @@
                 finishLoc = 400;
                
                 if(wormsize > highscore){
+                    
+                    hsIncrease = wormsize - highscore;
+                    highscoreText = "You bet your highscore by " + hsIncrease + "!"
                     highscore = wormsize;
+                }
+                if(highscore > wormsize){
+                    highscoreText = "You did not beat your highscore!";
                 }
 
                 highscoreLoc = 390;
@@ -138,12 +147,13 @@
                 yummyColour = "red";
                 wormColour = "lime";
                 nameColour = "white";
+                speed = 3;
 
              colour = "white";
 
              finishLoc = 1200;
 
-             counter = 60;
+             counter = 6;
 
         highscoreLoc = 900;
         hsIncrease = wormsize - highscore;
