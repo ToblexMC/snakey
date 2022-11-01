@@ -1,9 +1,10 @@
 <!doctype html>
 <body>
+    <title>Square</title>
     <canvas id="gameCanvas" width="900" height="900"></canvas>
     <script>
         var name = prompt("Set username");
-        alert("Hello "+ name + ", hope you enjoy");
+        alert("Hello "+ name + ",welcome to square! In this game you collect other squares by using the arrow keys to move into them, you grow in size and have a limited time to eat! How much can you eat in 60 seconds? Enjoy");
         var canvas, canvasContext;
 
         window.onload = function() {
@@ -16,11 +17,11 @@
             setInterval(mainloop, 1000 / 100);
         }
 
-        var wormsize = 20; 
-        var wormXpos = 450;
-        var wormYpos = 450; 
+        var squaresize = 20; 
+        var squareXpos = 450;
+        var squareYpos = 450; 
         var speed = 3;
-        var wormColour = "lime"
+        var squareColour = "lime"
 
         var colour = "white"
 
@@ -39,10 +40,10 @@
 
         var finishLoc = 1200;
 
-        var counter = 5;
+        var counter = 60;
 
         var highscore = 0;
-        var highscoreLoc = 900;
+        var highscoreLoc = 1000;
         var hsIncrease = 0;
         var highscoreText = "";
         
@@ -61,15 +62,16 @@
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
-            colorRect(wormXpos,wormYpos,wormsize,wormsize,wormColour); //bloby
-            colorRect(yummyXpos,yummyYpos,yummySize,yummySize,yummyColour);
+            colorRect(squareXpos,squareYpos,squaresize,squaresize,squareColour); //square
+            colorRect(yummyXpos,yummyYpos,yummySize,yummySize,yummyColour); //yummy
            
             drawText(755,20,300,100,colour, 'Countdown:' + counter); //countdown
             drawText(hcBestLoc,480,300,100,colour, highscoreText); //highscore amout
-            drawText(2,20,300,100,'white', 'Size:' + wormsize); //Size Counter
-            drawText(finishLoc,finishLoc,300,100,'white', 'Score: ' + wormsize); //finish
+            drawText(2,20,300,100,'white', 'Size:' + squaresize); //Size Counter
+            drawText(finishLoc,finishLoc,300,100,'white', 'Score: ' + squaresize); //finish
             drawText(highscoreLoc,440,300,100,'white', 'Highscore: ' + highscore); //highscore
-            drawText(wormXpos - 2,wormYpos - 10,300,100,nameColour, name); //Name
+            drawText(highscoreLoc - 40,520,300,100,'white', 'Click space bar to retry!'); //space bar
+            drawText(squareXpos - 2,squareYpos - 10,300,100,nameColour, name); //Name
 
 
             move();
@@ -84,18 +86,18 @@
         function finish(){
             if(counter < 0.1){
                 yummyColour = "black";
-                wormColour = "black";
+                squareColour = "black";
                 nameColour = "black";
-                wormXpos = 800;
+                squareXpos = 800;
                 finishLoc = 400;
                
-                if(wormsize > highscore){
+                if(squaresize > highscore){
                     
-                    hsIncrease = wormsize - highscore;
+                    hsIncrease = squaresize - highscore;
                     highscoreText = "You bet your highscore by " + hsIncrease + "!"
-                    highscore = wormsize;
+                    highscore = squaresize;
                 }
-                if(highscore > wormsize){
+                if(highscore > squaresize){
                     highscoreText = "You did not beat your highscore!";
                 }
 
@@ -126,26 +128,26 @@
         }
 
         function move(){
-            if(leftKeyPressed == true && wormXpos > 0 && counter > 0){
-                wormXpos = wormXpos - speed;
+            if(leftKeyPressed == true && squareXpos > 0 && counter > 0){
+                squareXpos = squareXpos - speed;
             }
-            if(rightKeyPressed == true && wormXpos < canvas.width - wormsize && counter > 0){
-                wormXpos = wormXpos + speed;
+            if(rightKeyPressed == true && squareXpos < canvas.width - squaresize && counter > 0){
+                squareXpos = squareXpos + speed;
             }
-            if(upKeyPressed == true && wormYpos > 0 && counter > 0){
-                wormYpos = wormYpos - speed;
+            if(upKeyPressed == true && squareYpos > 0 && counter > 0){
+                squareYpos = squareYpos - speed;
             }
-            if(downKeyPressed == true && wormYpos < canvas.height - wormsize && counter > 0){
-                wormYpos = wormYpos + speed;
+            if(downKeyPressed == true && squareYpos < canvas.height - squaresize && counter > 0){
+                squareYpos = squareYpos + speed;
             }
             if(spaceKeyPressed == true){
                 
-                wormsize = 20; 
-                wormXpos = 450;
-                wormYpos = 450; 
+                squaresize = 20; 
+                squareXpos = 450;
+                squareYpos = 450; 
  
                 yummyColour = "red";
-                wormColour = "lime";
+                squareColour = "lime";
                 nameColour = "white";
                 speed = 3;
 
@@ -153,11 +155,11 @@
 
              finishLoc = 1200;
 
-             counter = 6;
+             counter = 60;
 
-        highscoreLoc = 900;
-        hsIncrease = wormsize - highscore;
-        hcBestLoc = 900;
+        highscoreLoc = 1000;
+        hsIncrease = squaresize - highscore;
+        hcBestLoc = 1000;
 
         yummyXpos = 120;
         yummyYpos = 300;
@@ -184,10 +186,10 @@
         }
 
         function yummyRandomPos(){
-            if(yummyYpos + wormsize > wormYpos && yummyYpos < wormYpos + wormsize && yummyXpos + yummySize > wormXpos && yummyXpos < wormXpos + wormsize){
+            if(yummyYpos + squaresize > squareYpos && yummyYpos < squareYpos + squaresize && yummyXpos + yummySize > squareXpos && yummyXpos < squareXpos + squaresize){
                 yummyXpos = Math.floor(Math.random()*(900 - yummySize));
                 yummyYpos = Math.floor(Math.random()*(900 - yummySize));
-                wormsize = wormsize + 2;
+                squaresize = squaresize + 2;
                 speed = speed + .1; 
 
             }
