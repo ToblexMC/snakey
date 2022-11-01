@@ -38,6 +38,9 @@
 
         var counter = 1;
 
+        var highscore = 0;
+
+
         var yummyXpos = 120;
         var yummyYpos = 300;
         var yummySize = 35; 
@@ -51,7 +54,7 @@
            
             drawText(755,20,300,100,colour, 'Countdown:' + counter); //countdown
             drawText(2,20,300,100,'white', 'Size:' + wormsize); //Size Counter
-            drawText(finishLoc,finishLoc,300,100,'white', 'Score:' + wormsize); //finish
+            drawText(finishLoc,finishLoc,300,100,'white', 'Score: ' + wormsize); //finish
             drawText(wormXpos - 2,wormYpos - 10,300,100,'white', name); //Name
 
             move();
@@ -66,6 +69,10 @@
                 yummyColour = "black";
                 wormColour = "black";
                 finishLoc = 400;
+
+                if(yummySize > highscore){
+                    yummySize = highscore;
+                }
             }
         }
 
