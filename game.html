@@ -28,21 +28,36 @@
         var rightKeyPressed = false;
         var upKeyPressed = false;
         var downKeyPressed = false;
+        var spaceKeyPressed = false;
+        
 
         const left = 37;
         const right = 39;
         const up = 38;
         const down = 40;
+        const space = 32;
 
-        var finishLoc = 800;
+        var finishLoc = 1200;
 
-        var counter = 1;
+        var counter = 5;
+
+        var highscore = 0;
+        var highscoreLoc = 900;
+        var hsIncrease = 0;
+        var highscoreText = "";
+        
+        var hcBestLoc = 900;
+
 
         var yummyXpos = 120;
         var yummyYpos = 300;
         var yummySize = 35; 
         var yummyColour = "red";
 
+        var nameColour = "white";
+
+        var retryToggle = 1; 
+        
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
@@ -50,23 +65,45 @@
             colorRect(yummyXpos,yummyYpos,yummySize,yummySize,yummyColour);
            
             drawText(755,20,300,100,colour, 'Countdown:' + counter); //countdown
+            drawText(hcBestLoc,480,300,100,colour, highscoreText); //highscore amout
             drawText(2,20,300,100,'white', 'Size:' + wormsize); //Size Counter
-            drawText(finishLoc,finishLoc,300,100,'white', 'Score:' + wormsize); //finish
-            drawText(wormXpos - 2,wormYpos - 10,300,100,'white', name); //Name
+            drawText(finishLoc,finishLoc,300,100,'white', 'Score: ' + wormsize); //finish
+            drawText(highscoreLoc,440,300,100,'white', 'Highscore: ' + highscore); //highscore
+            drawText(wormXpos - 2,wormYpos - 10,300,100,nameColour, name); //Name
+
 
             move();
             yummyRandomPos();
             count();
             colourSet();
             finish();
+
         }
+
 
         function finish(){
             if(counter < 0.1){
                 yummyColour = "black";
                 wormColour = "black";
+                nameColour = "black";
+                wormXpos = 800;
                 finishLoc = 400;
+               
+                if(wormsize > highscore){
+                    
+                    hsIncrease = wormsize - highscore;
+                    highscoreText = "You bet your highscore by " + hsIncrease + "!"
+                    highscore = wormsize;
+                }
+                if(highscore > wormsize){
+                    highscoreText = "You did not beat your highscore!";
+                }
+
+                highscoreLoc = 390;
+                hcBestLoc = 320;
+
             }
+
         }
 
 
@@ -83,6 +120,9 @@
             if(evt.keyCode == down){
                 downKeyPressed = true;
             }
+            if(evt.keyCode == space){
+                spaceKeyPressed = true;
+            }
         }
 
         function move(){
@@ -98,6 +138,30 @@
             if(downKeyPressed == true && wormYpos < canvas.height - wormsize && counter > 0){
                 wormYpos = wormYpos + speed;
             }
+            if(spaceKeyPressed == true){
+                
+                wormsize = 20; 
+                wormXpos = 450;
+                wormYpos = 450; 
+ 
+                yummyColour = "red";
+                wormColour = "lime";
+                nameColour = "white";
+                speed = 3;
+
+             colour = "white";
+
+             finishLoc = 1200;
+
+             counter = 6;
+
+        highscoreLoc = 900;
+        hsIncrease = wormsize - highscore;
+        hcBestLoc = 900;
+
+        yummyXpos = 120;
+        yummyYpos = 300;
+            }
         }
 
         function keyReleased(evt) {
@@ -112,6 +176,10 @@
             }
             if(evt.keyCode == down){
                 downKeyPressed = false;
+            }
+            if (evt.keyCode == space){
+                spaceKeyPressed = false;
+                retryToggle = false; 
             }
         }
 
