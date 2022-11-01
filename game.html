@@ -39,6 +39,7 @@
         var counter = 1;
 
         var highscore = 0;
+        var highscoreLoc = 900;
 
 
         var yummyXpos = 120;
@@ -46,6 +47,7 @@
         var yummySize = 35; 
         var yummyColour = "red";
 
+        var nameColour = "white";
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
@@ -55,7 +57,8 @@
             drawText(755,20,300,100,colour, 'Countdown:' + counter); //countdown
             drawText(2,20,300,100,'white', 'Size:' + wormsize); //Size Counter
             drawText(finishLoc,finishLoc,300,100,'white', 'Score: ' + wormsize); //finish
-            drawText(wormXpos - 2,wormYpos - 10,300,100,'white', name); //Name
+            drawText(highscoreLoc,440,300,100,'white', 'Highscore: ' + highscore); //highscore
+            drawText(wormXpos - 2,wormYpos - 10,300,100,nameColour, name); //Name
 
             move();
             yummyRandomPos();
@@ -68,12 +71,17 @@
             if(counter < 0.1){
                 yummyColour = "black";
                 wormColour = "black";
+                nameColour = "black";
                 finishLoc = 400;
-
-                if(yummySize > highscore){
-                    yummySize = highscore;
+               
+                if(wormsize > highscore){
+                    highscore = wormsize;
                 }
+
+                highscoreLoc = 390;
+
             }
+
         }
 
 
