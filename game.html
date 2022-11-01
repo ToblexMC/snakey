@@ -28,15 +28,18 @@
         var rightKeyPressed = false;
         var upKeyPressed = false;
         var downKeyPressed = false;
+        var spaceKeyPressed = false;
+        
 
         const left = 37;
         const right = 39;
         const up = 38;
         const down = 40;
+        const space = 32;
 
-        var finishLoc = 800;
+        var finishLoc = 1200;
 
-        var counter = 1;
+        var counter = 5;
 
         var highscore = 0;
         var highscoreLoc = 900;
@@ -51,6 +54,8 @@
         var yummyColour = "red";
 
         var nameColour = "white";
+
+        var retryToggle = 1; 
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
@@ -69,7 +74,9 @@
             count();
             colourSet();
             finish();
+
         }
+
 
         function finish(){
             if(counter < 0.1){
@@ -104,6 +111,9 @@
             if(evt.keyCode == down){
                 downKeyPressed = true;
             }
+            if(evt.keyCode == space){
+                spaceKeyPressed = true;
+            }
         }
 
         function move(){
@@ -119,6 +129,29 @@
             if(downKeyPressed == true && wormYpos < canvas.height - wormsize && counter > 0){
                 wormYpos = wormYpos + speed;
             }
+            if(spaceKeyPressed == true){
+                
+                wormsize = 20; 
+                wormXpos = 450;
+                wormYpos = 450; 
+ 
+                yummyColour = "red";
+                wormColour = "lime";
+                nameColour = "white";
+
+             colour = "white";
+
+             finishLoc = 1200;
+
+             counter = 60;
+
+        highscoreLoc = 900;
+        hsIncrease = wormsize - highscore;
+        hcBestLoc = 900;
+
+        yummyXpos = 120;
+        yummyYpos = 300;
+            }
         }
 
         function keyReleased(evt) {
@@ -133,6 +166,10 @@
             }
             if(evt.keyCode == down){
                 downKeyPressed = false;
+            }
+            if (evt.keyCode == space){
+                spaceKeyPressed = false;
+                retryToggle = false; 
             }
         }
 
