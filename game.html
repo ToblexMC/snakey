@@ -53,7 +53,7 @@
 
         var finishLoc = 1200;
 
-        var counter = 60;
+        var counter = 6;
         var counterToggle = true;
 
         var highscore = 0;
@@ -63,21 +63,21 @@
         
         var hcBestLoc = 900;
 
-
-        var yummyXpos = 120;
-        var yummyYpos = 300;
-        var yummySize = 35; 
-        var yummyColour = "red";
-
         var nameColour = "white";
 
         var retryToggle = 1; 
         
+        var yummyToggle = true;
+        var totalYummies = 5;
+
+        var printYummy = true;
+
+        var yummies = [];
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
             colorRect(squareXpos,squareYpos,squaresize,squaresize,squareColour); //square
-            colorRect(yummyXpos,yummyYpos,yummySize,yummySize,yummyColour); //yummy
+    
            
             drawText(755,20,300,100,colour, 'Countdown:' + counter); //countdown
             drawText(hcBestLoc,480,300,100,colour, highscoreText); //highscore amout
@@ -94,6 +94,16 @@
             colourSet();
             finish();
 
+
+            if(yummyToggle){
+                for(i=0; i < totalYummies; i++){
+                makeYummies();
+                }
+                yummyToggle = false;
+            }
+
+            drawYummy();
+
         }
 
 
@@ -105,6 +115,7 @@
                 death.play();
                 }
 
+                printYummy = false;
                 yummyColour = "black";
                 squareColour = "black";
                 nameColour = "black";
@@ -165,11 +176,13 @@
                 squaresize = 20; 
                 squareXpos = 450;
                 squareYpos = 450; 
- 
+                printYummy = true;
                 yummyColour = "red";
                 squareColour = "lime";
                 nameColour = "white";
                 speed = 3;
+                counterToggle = true;
+
 
              colour = "white";
 
@@ -206,15 +219,18 @@
         }
 
         function yummyRandomPos(){
-            if(yummyYpos + squaresize > squareYpos && yummyYpos < squareYpos + squaresize && yummyXpos + yummySize > squareXpos && yummyXpos < squareXpos + squaresize){
-                yummyXpos = Math.floor(Math.random()*(900 - yummySize));
-                yummyYpos = Math.floor(Math.random()*(900 - yummySize));
+            yummies.forEach(function(yummy){
+
+            
+            if(yummy.yummyYpos + squaresize > squareYpos && yummy.yummyYpos < squareYpos + squaresize && yummy.yummyXpos + yummy.yummySize > squareXpos && yummy.yummyXpos < squareXpos + squaresize){
+                yummy.yummyXpos = Math.floor(Math.random()*(900 - yummy.yummySize));
+                yummy.yummyYpos = Math.floor(Math.random()*(900 - yummy.yummySize));
                 squaresize = squaresize + 2;
                 speed = speed + .1; 
                 eat.play();
 
             }
-
+        });
         }
 
         function count(){
@@ -252,6 +268,37 @@
             canvasContext.fillText(msg,x,y,w,h);
             canvasContext.font = "20px Arial";
         }
- 
+
+
+
+
+        function makeYummies(){
+            var yummySize = 35
+            var yummyXpos = Math.floor(Math.random()*(900 - yummySize));
+            var yummyYpos = Math.floor(Math.random()*(900 - yummySize));
+            var yummyColour = "red";
+
+            var yummy = {
+                yummySize: yummySize,
+                yummyXpos: yummyXpos,
+                yummyYpos: yummyYpos,
+                yummyColour: yummyColour
+            }
+
+            yummies.push(yummy)
+        }
+
+        function drawYummy(){
+            if(printYummy){
+            yummies.forEach(function(yummy, i){
+                colorRect(yummy.yummyXpos,yummy.yummyYpos,yummy.yummySize,yummy.yummySize,yummy.yummyColour); //yummy
+            });
+            
+            
+        }else{
+            yummy.yummyColour = "black";
+        }
+        }
+
     </script>
 </body>
