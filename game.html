@@ -17,6 +17,7 @@
             setInterval(mainloop, 1000 / 100);
         }
 
+        //square variables
         var squaresize = 20; 
         var squareXpos = 450;
         var squareYpos = 450; 
@@ -25,22 +26,35 @@
 
         var colour = "white"
 
+        //press toggle
         var leftKeyPressed = false;
         var rightKeyPressed = false;
         var upKeyPressed = false;
         var downKeyPressed = false;
         var spaceKeyPressed = false;
         
-
+        //keycodes
         const left = 37;
         const right = 39;
         const up = 38;
         const down = 40;
         const space = 32;
 
+        //sound effects, sourced by https://gfxsounds.com/ *royalty-free*
+        const eat = new Audio('/audio/eat.mp3');
+        const death = new Audio('/audio/death.mp3');
+
+        //Music, sourced by https://www.youtube.com/watch?v=-5AY7ex6pxg *copyright free*
+        const music = new Audio('/audio/music.mp3');
+        music.volume - .1;
+        music.play();
+        
+        
+
         var finishLoc = 1200;
 
         var counter = 60;
+        var counterToggle = true;
 
         var highscore = 0;
         var highscoreLoc = 1000;
@@ -85,6 +99,12 @@
 
         function finish(){
             if(counter < 0.1){
+                counter = 0;
+                counterToggle = false;
+                if(finishLoc > 401){
+                death.play();
+                }
+
                 yummyColour = "black";
                 squareColour = "black";
                 nameColour = "black";
@@ -191,13 +211,14 @@
                 yummyYpos = Math.floor(Math.random()*(900 - yummySize));
                 squaresize = squaresize + 2;
                 speed = speed + .1; 
+                eat.play();
 
             }
 
         }
 
         function count(){
-            if(counter > 0){
+            if(counter > 0 && counterToggle){
             counter = counter - 0.01;
             }
             if(counter < 0){
