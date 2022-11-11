@@ -5,6 +5,7 @@
     <script>
         var name = prompt("Set username");
         alert("Hello "+ name + ",welcome to square! In this game you collect other squares by using the arrow keys to move into them, you grow in size and have a limited time to eat! How much can you eat in 60 seconds? Enjoy");
+        var totalYummies = prompt("Set amount of yummies (1 being hard 10 being easy")
         var canvas, canvasContext;
 
         window.onload = function() {
@@ -18,10 +19,9 @@
         }
 
         //square variables
-        var squaresize = 20; 
+        var squaresize = 20;
         var squareXpos = 450;
         var squareYpos = 450; 
-        var speed = 3;
         var squareColour = "lime"
 
         var colour = "white"
@@ -50,12 +50,11 @@
         music.play();
         
         
-
+        var speed = 3;
         var finishLoc = 1200;
 
-        var counter = 6;
+        var counter = 60;
         var counterToggle = true;
-
         var highscore = 0;
         var highscoreLoc = 1000;
         var hsIncrease = 0;
@@ -68,7 +67,7 @@
         var retryToggle = 1; 
         
         var yummyToggle = true;
-        var totalYummies = 5;
+
 
         var printYummy = true;
 
@@ -87,12 +86,13 @@
             drawText(highscoreLoc - 40,520,300,100,'white', 'Click space bar to retry!'); //space bar
             drawText(squareXpos - 2,squareYpos - 10,300,100,nameColour, name); //Name
 
-
+            console.log(totalYummies)
             move();
             yummyRandomPos();
             count();
             colourSet();
             finish();
+
 
 
             if(yummyToggle){
@@ -107,7 +107,7 @@
         }
 
 
-        function finish(){
+        function finish(){ //what happens on counter end
             if(counter < 0.1){
                 counter = 0;
                 counterToggle = false;
@@ -140,7 +140,7 @@
         }
 
 
-        function keyPressed(evt){
+        function keyPressed(evt){ //toggle varibales of key input
             if(evt.keyCode == left){
                 leftKeyPressed = true;
             }
@@ -158,7 +158,7 @@
             }
         }
 
-        function move(){
+        function move(){ //what dto dso on key inuiput
             if(leftKeyPressed == true && squareXpos > 0 && counter > 0){
                 squareXpos = squareXpos - speed;
             }
@@ -180,7 +180,6 @@
                 yummyColour = "red";
                 squareColour = "lime";
                 nameColour = "white";
-                speed = 3;
                 counterToggle = true;
 
 
@@ -199,7 +198,7 @@
             }
         }
 
-        function keyReleased(evt) {
+        function keyReleased(evt) { //toggle off on release key
             if(evt.keyCode == left){
                 leftKeyPressed = false;
             }
@@ -218,7 +217,7 @@
             }
         }
 
-        function yummyRandomPos(){
+        function yummyRandomPos(){ //yummys reandom posiotion
             yummies.forEach(function(yummy){
 
             
@@ -233,7 +232,7 @@
         });
         }
 
-        function count(){
+        function count(){ //counytdown
             if(counter > 0 && counterToggle){
             counter = counter - 0.01;
             }
@@ -243,7 +242,7 @@
             
         }
 
-        function colourSet(){
+        function colourSet(){ //set colkour of countdown as it gets to 0
             if(counter < 31 && counter > 21){
                 colour = "yellow";
             }
@@ -272,7 +271,7 @@
 
 
 
-        function makeYummies(){
+        function makeYummies(){ //makes arrays of yummies
             var yummySize = 35
             var yummyXpos = Math.floor(Math.random()*(900 - yummySize));
             var yummyYpos = Math.floor(Math.random()*(900 - yummySize));
@@ -288,15 +287,15 @@
             yummies.push(yummy)
         }
 
-        function drawYummy(){
-            if(printYummy){
+        function drawYummy(){ //drawsa arrays
+            if(printYummy){ //so if game over it will not show any
             yummies.forEach(function(yummy, i){
                 colorRect(yummy.yummyXpos,yummy.yummyYpos,yummy.yummySize,yummy.yummySize,yummy.yummyColour); //yummy
             });
             
             
         }else{
-            yummy.yummyColour = "black";
+            yummyColour = "black";
         }
         }
 
