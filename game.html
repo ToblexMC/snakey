@@ -5,12 +5,12 @@
     <script>
         //set user
         var name = prompt("Set username");
-        //small explaijn
+         //small explaijn
         alert("Hello "+ name + ",welcome to square! In this game you collect other squares by using the arrow keys to move into them, you grow in size and have a limited time to eat! How much can you eat in 60 seconds? Enjoy");
-        //set ammounyt of yummies
-        var totalYummies = prompt("Set amount of yummies (1 being hard 10 being easy)")
+         //set ammounyt of yummies
+        var totalYummies = prompt("Set amount of yummies (1 being hard 10 being easy")
         var canvas, canvasContext;
-        //run canvas
+   //run canvas
         window.onload = function() {
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
@@ -49,13 +49,12 @@
 
         //Music, sourced by https://www.youtube.com/watch?v=-5AY7ex6pxg *copyright free*
         const music = new Audio('/audio/music.mp3');
-        music.play();
         
         
-        var speed = 3; //speed of square
+        var speed = 3;  //speed of square
         var finishLoc = 1200;
 
-        var counter = 60; //countdown of round
+        var counter = 30; //countdown of round
         var counterToggle = true; //if counter run
         var highscore = 0; //base highscore
         var highscoreLoc = 1000; //hides highscore text until finish
@@ -68,14 +67,15 @@
 
         var retryToggle = 1; //sets retry toggleablity
         
-        var yummyToggle = true; //toggle to avoid lppoping
+        var yummyToggle = true;//toggle to avoid lppoping
 
 
-        var printYummy = true; //avoid lopping more than the amont of yuummies (set at start)
+        var printYummy = true;//avoid lopping more than the amont of yuummies (set at start)
 
-        var togglleee = true; //toggle for music, because browsers will not play audio unless the music is started by the user, so the music only starts on LEFT KEY, which is highly likely to happen
 
         var yummies = []; //array defaulty
+
+        var togglleee = true; //toggle for music, because browsers will not play audio unless the music is started by the user, so the music only starts on LEFT KEY, which is highly likely to happen
 
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // background color
@@ -90,6 +90,7 @@
             drawText(highscoreLoc - 40,520,300,100,'white', 'Click space bar to retry!'); //space bar
             drawText(squareXpos - 2,squareYpos - 10,300,100,nameColour, name); //Name
 
+            
             move();
             yummyRandomPos();
             count();
@@ -99,7 +100,7 @@
 
 
             if(yummyToggle){
-                for(i=0; i < totalYummies; i++){ //priavte variable checking public variable if it can gain more, ity will keep hgoing until it = the same 
+                for(i=0; i < totalYummies; i++){//priavte variable checking public variable if it can gain more, ity will keep hgoing until it = the same 
                 makeYummies();
                 }
                 yummyToggle = false; // stops it from looping and prinitn 1-10 more
@@ -111,10 +112,10 @@
 
 
         function finish(){ //what happens on counter end
-            if(counter < 0.1){ //i fcounter is complete it will run this funitonm
+            if(counter < 0.1){  //i fcounter is complete it will run this funitonm
                 counter = 0;
-                counterToggle = false; //stops ciounter from going down
-                if(finishLoc > 401){ //does this so only death.play plays once, as after at line 125 it sets a new number below 400 this is a 2 in one, it moves text and is a toggle
+                counterToggle = false;//stops ciounter from going down
+                if(finishLoc > 401){//does this so only death.play plays once, as after at line 125 it sets a new number below 400 this is a 2 in one, it moves text and is a toggle
                 death.play();
                 }
 
@@ -124,11 +125,10 @@
                 nameColour = "black";
                 squareXpos = 800;
                 finishLoc = 400;
-               
-                //if you berat your highscore
-                if(squaresize > highscore){ //checking highscore beating
+               //if you berat your highscore
+               if(squaresize > highscore){ //checking highscore beating
                     
-                    hsIncrease = squaresize - highscore; //setting hoi wmuch you increase your highscore byy
+                hsIncrease = squaresize - highscore; //setting hoi wmuch you increase your highscore byy
                     highscoreText = "You bet your highscore by " + hsIncrease + "!"//text saying new highscore
                     highscore = squaresize; //setting your new highscore
                 }
@@ -169,8 +169,7 @@
                     music.play();
                     togglleee = false;
                 }
-            }
-            //each will check if it is not going to move to the outside of canvas
+            }     //each will check if it is not going to move to the outside of canvas
             if(rightKeyPressed == true && squareXpos < canvas.width - squaresize && counter > 0){
                 squareXpos = squareXpos + speed;
             }
@@ -181,7 +180,9 @@
                 squareYpos = squareYpos + speed;
             }
             if(spaceKeyPressed == true){
+                
                 //sets back to default varibale from if you were to refresh page
+                speed = 3;
                 squaresize = 20; 
                 squareXpos = 450;
                 squareYpos = 450; 
@@ -194,19 +195,22 @@
 
              colour = "white"; //set text back
 
-             finishLoc = 1200; //hide fjinish tesxt
+             finishLoc = 1200;//hide fjinish tesxt
 
-             counter = 60; //reset counter
+             counter = 30;//hide fjinish tesxt
 
-        highscoreLoc = 1000; //hides hughscore
+             highscoreLoc = 1000; //hides hughscore
         hsIncrease = squaresize - highscore; //calculate new increase
         hcBestLoc = 1000; //hides text of best highscore by
+
+        yummyXpos = 120;
+        yummyYpos = 300;
             }
         }
 
         function keyReleased(evt) { //toggle off on release key
             if(evt.keyCode == left){
-                leftKeyPressed = false; 
+                leftKeyPressed = false;
             }
             if(evt.keyCode == right){
                 rightKeyPressed = false;
@@ -228,10 +232,12 @@
 
             
             if(yummy.yummyYpos + squaresize > squareYpos && yummy.yummyYpos < squareYpos + squaresize && yummy.yummyXpos + yummy.yummySize > squareXpos && yummy.yummyXpos < squareXpos + squaresize){
-
+                yummy.yummyXpos = Math.floor(Math.random()*(900 - yummy.yummySize));
+                yummy.yummyYpos = Math.floor(Math.random()*(900 - yummy.yummySize)); //these two lines rnadom pos before teh array does to avoid glitches
                 squaresize = squaresize + 2;
                 speed = speed + .1; //add speed 
                 eat.play(); //play audio of eating thing
+
             }
         });
         }
@@ -247,15 +253,15 @@
         }
 
         function colourSet(){ //set colkour of countdown as it gets to 0
-            if(counter < 31 && counter > 21){ //orange if less 31 and more than 21
+            if(counter < 31 && counter > 21){//if less than 31 and more than 21 set yrllo
                 colour = "yellow";
             }
 
-            if(counter < 21 && counter > 11){ //change orange more tan 11 and less than 21
-                colour = "orange";
+            if(counter < 21 && counter > 11){
+                colour = "orange"; //less than 21 and more than 11 it will be ornage
             }
 
-            if (counter < 11){ //change ot red less than 10
+            if (counter < 11){ //less than 11 be red texyt
                 colour = "red"
             }
         }
@@ -277,11 +283,10 @@
 
         function makeYummies(){ //makes arrays of yummies
             var yummySize = 35
-            var yummyXpos = Math.floor(Math.random()*(canvas.width - yummySize));//random x location
-            var yummyYpos = Math.floor(Math.random()*(canvas.width - yummySize));//random y location
+            var yummyXpos = Math.floor(Math.random()*(900 - yummySize));
+            var yummyYpos = Math.floor(Math.random()*(900 - yummySize));
             var yummyColour = "red";
-
-            //gets variables for each array for drawning yummy.[]
+//gets variables for each array for drawning yummy.[]
             var yummy = {
                 yummySize: yummySize,
                 yummyXpos: yummyXpos,
